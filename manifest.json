@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "D6tron | RNG pour le Forum Dessiné",
+    "version": "1.0.0",
+    "description": "Affiche un tirage aléatoire de dés associé à un post du forum.",
+    "author": "Le Troll",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.forum-dessine.fr/forum/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "style.css"
+            ]
+        }
+    ],
+    "icons": {
+        "128": "icon128.png"
+    }
+}
