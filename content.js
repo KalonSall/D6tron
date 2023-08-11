@@ -160,10 +160,9 @@ function addReminder() {
   const noteBox = document.createElement('div');
   noteBox.className = 'diceResultBox';
   noteBox.innerHTML = `
-            <div>
+            <details>
+            <summary>🎲 <b>Règles D6tron</b> 🍋</summary>
             <span class="diceResultText">
-            <span style="font-size: 16px;">🎲 <b>D6tron</b> 🍋</span><br>
-            <span style="font-size: 5px;"></span><br>
             Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)<br>
             <br>
             <u>Exemples :</u><br>
@@ -171,7 +170,7 @@ function addReminder() {
             Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;">monautrefichier</span>.jpg ➔ <span style="color: #FFDC63;">monautrefichier</span>_<b>roll_2d100_3d8</b>.jpg<br>
             <br>
             <span style="font-size: 10px;">Un encart de confirmation apparaît sous votre fichier déposé ci-dessus si un lancer est détecté !</span>
-            </div>
+            </details>
           `;
   responseBloc.appendChild(noteBox);
 }
