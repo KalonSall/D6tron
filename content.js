@@ -161,7 +161,7 @@ function addReminder() {
   noteBox.className = 'diceResultBox';
   noteBox.innerHTML = `
             <details>
-            <summary>🎲 <b>Règles D6tron</b> 🍋</summary>
+            <summary>🎲 <b><span style="color: white;">Règles D6tron</span></b> 🍋</summary>
             <span class="diceResultText">
             Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)<br>
             <br>
