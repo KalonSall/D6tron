@@ -166,8 +166,8 @@ function addReminder() {
             Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)<br>
             <br>
             <u>Exemples :</u><br>
-            Lancer <b>un dé 6</b> : <span style="color: #FFDC63;">monfichier</span>.png ➔ <span style="color: #FFDC63;">monfichier</span>_<b>roll_1d6</b>.png<br>
-            Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;">monautrefichier</span>.jpg ➔ <span style="color: #FFDC63;">monautrefichier</span>_<b>roll_2d100_3d8</b>.jpg<br>
+            Lancer <b>un dé 6</b> : <span style="color: #FFDC63;">monfichier</span>.png&nbsp➔&nbsp<span style="color: #FFDC63;">monfichier</span>_<b>roll_1d6</b>.png<br>
+            Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;">monautrefichier</span>.jpg&nbsp➔&nbsp<span style="color: #FFDC63;">monautrefichier</span>_<b>roll_2d100_3d8</b>.jpg<br>
             <br>
             <span style="font-size: 10px;">Un encart de confirmation apparaît sous votre fichier déposé ci-dessus si un lancer est détecté !</span>
             </details>
