@@ -54,7 +54,8 @@ function exctractDiceCommands(str) {
   const pattern = /[0-9]+[d][0-9]+/g;
   str = str.toLowerCase();
   if (str.includes("roll")) {
-    matches = str.split("roll")[1].match(pattern);
+    const splitstr = str.split("roll");
+    matches = splitstr.pop().match(pattern);
   }
 
   //Very dirty exception, my ancestors are ashamed
