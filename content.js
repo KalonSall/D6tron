@@ -28,8 +28,8 @@ function generateRandomNumber(seed, min, max) {
 
 function executeDiceCommand(command, seed, includeCommandInResult) {
   const params = command.split("d");
-  const diceCount = Math.min(10, params[0]); // Limit to 10 dices by command
-  const diceSize = Math.max(2, Math.min(100, params[1])); // Limit to a dice size of 100 max and 2 min
+  const diceCount = params[0];
+  const diceSize = params[1]; // Limit to a dice size of 100 max and 2 min
   const textArray = [];
   for (let i = 0; i < diceCount; i++) {
     textArray.push(`<b>${generateRandomNumber(seed, 1, diceSize).toString()}</b>`);
@@ -72,6 +72,15 @@ function exctractDiceCommands(str) {
     }
   }
 
+  if (matches) {
+    matches = matches.slice(0, 10);   // Limit to 10 dice commands
+    for (let i = 0; i < matches.length; i++) {
+      const params = matches[i].split("d");
+      const diceCount = Math.min(10, params[0]); // Limit to 10 dices by command
+      const diceSize = Math.max(2, Math.min(100, params[1])); // Limit to a dice size of 100 max and 2 min
+      matches[i] = diceCount.toString() + "d" + diceSize.toString();
+    }
+  }
   return matches;
 }
 
@@ -105,8 +114,6 @@ function addRandomNumbersToPosts() {
             includeCommandInResult = 0;
           }
         }
-
-        matches = matches.slice(0, 10);  // Limit to 10 dice commands
 
         matches.forEach((match) => {
           seed = strHash(seed.concat(authorName, match));  // Update seed
