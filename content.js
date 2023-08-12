@@ -150,10 +150,10 @@ function addCmdToFuturePost() {
     const imagename = filename.split(".")[0]; //Get the file name of image without the extension
     const matches = exctractDiceCommands(imagename);
     if (matches) {
-      const message = matches.join(" | ");
+      const message = matches.join(", ");
       cmdbox.innerHTML = `
             <div>
-            <span class="diceResultText"><span style="font-size: 10px;">🎲 ${message}</span></span>
+            <span class="diceResultText"><span style="font-size: 14px;">🎲<br><span style="font-size: 10px;">${message}</span></span>
             </div>
           `;
       post.appendChild(cmdbox);
@@ -164,12 +164,13 @@ function addCmdToFuturePost() {
 
 function addReminder() {
   const responseBloc = document.querySelector('div[id="repondreTopic"]');
-  const noteBox = document.createElement('div');
-  noteBox.className = 'diceResultBox';
-  noteBox.innerHTML = `
+  if (responseBloc) {
+    const noteBox = document.createElement('div');
+    noteBox.className = 'diceResultBox';
+    noteBox.innerHTML = `
             <details>
             <summary>🎲 <b><span style="color: white;">Règles D6tron</span></b> 🍋</summary>
-            <span class="diceResultText">
+            <span class="diceResultText" style="font-size: 14px;">
             Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)<br>
             <br>
             <u>Exemples :</u><br>
@@ -179,7 +180,8 @@ function addReminder() {
             <span style="font-size: 10px;">Un encart de confirmation apparaît sous votre fichier déposé ci-dessus si un lancer est détecté !</span>
             </details>
           `;
-  responseBloc.appendChild(noteBox);
+    responseBloc.appendChild(noteBox);
+  }
 }
 
 
