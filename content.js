@@ -29,7 +29,7 @@ function generateRandomNumber(seed, min, max) {
 function executeDiceCommand(command, seed, includeCommandInResult) {
   const params = command.split("d");
   const diceCount = params[0];
-  const diceSize = params[1]; // Limit to a dice size of 100 max and 2 min
+  const diceSize = params[1];
   const textArray = [];
   for (let i = 0; i < diceCount; i++) {
     textArray.push(`<b>${generateRandomNumber(seed, 1, diceSize).toString()}</b>`);
@@ -138,15 +138,15 @@ function addRandomNumbersToPosts() {
 }
 
 function addCmdToFuturePost() {
-  const posts = document.querySelectorAll('.drop_bloc'); //Get post
+  const posts = document.querySelectorAll('.drop_bloc');  // Get drop zone
   posts.forEach((post) => {
-    let cmdbox = post.querySelector('.diceResultBox'); //Get post
+    let cmdbox = post.querySelector('.diceResultBox');
     if (!cmdbox) {
       cmdbox = document.createElement('div');
       cmdbox.className = 'diceResultBox';
     }
     const hidden = post.querySelector('input[type="hidden"]');
-    const filename = hidden.value; //Get image source path
+    const filename = hidden.value; //Get image file name
     const imagename = filename.split(".")[0]; //Get the file name of image without the extension
     const matches = exctractDiceCommands(imagename);
     if (matches) {
