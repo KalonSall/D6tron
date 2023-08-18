@@ -9,7 +9,6 @@ function intHash(str) {
   return hash;
 }
 
-
 function strHash(str) {
   let hash = 5381;
   for (let i = 0; i < str.length; i++) {
@@ -18,13 +17,11 @@ function strHash(str) {
   return hash.toString();
 }
 
-
 function generateRandomNumber(seed, min, max) {
   const hashedSeed = intHash(seed.toString());
   const rng = (Math.abs(hashedSeed) % (max - min + 1)) + min;
   return rng;
 }
-
 
 function executeDiceCommand(command, seed, includeCommandInResult) {
   const params = command.split("d");
@@ -49,7 +46,7 @@ function executeDiceCommand(command, seed, includeCommandInResult) {
   return result;
 }
 
-function exctractDiceCommands(str) {
+function extractDiceCommands(str) {
   let matches = null;
   const pattern = /[0-9]+[d][0-9]+/g;
   str = str.toLowerCase();
@@ -99,7 +96,7 @@ function addRandomNumbersToPosts() {
       const imagename = filename.split(".")[0]; // Get the file name of image without the extension
 
       // Find XdN command matches in filename
-      let matches = exctractDiceCommands(imagename);
+      let matches = extractDiceCommands(imagename);
 
       if (matches && matches.length > 0) {
         let seed = imagename; //Initialize seed with filename
@@ -137,29 +134,41 @@ function addRandomNumbersToPosts() {
   });
 }
 
-function addCmdToFuturePost() {
-  const posts = document.querySelectorAll('.drop_bloc');  // Get drop zone
-  posts.forEach((post) => {
-    let cmdbox = post.querySelector('.diceResultBox');
-    if (!cmdbox) {
-      cmdbox = document.createElement('div');
-      cmdbox.className = 'diceResultBox';
+function addCmdToFuturePost(mutationsList, observer) {
+  //Check if there is a change in the uploaded images
+  let needUpdate = false;
+  mutationsList.forEach((mutation) => {
+    if (mutation.target.className == "drop_area") {
+      needUpdate = true;
     }
-    const hidden = post.querySelector('input[type="hidden"]');
-    const filename = hidden.value; //Get image file name
-    const imagename = filename.split(".")[0]; //Get the file name of image without the extension
-    const matches = exctractDiceCommands(imagename);
-    if (matches) {
-      const message = matches.join(", ");
-      cmdbox.innerHTML = `
+  })
+  //If a change is detected, update the cmdbox
+  if (needUpdate) {
+    const posts = document.querySelectorAll('.drop_bloc');  // Get drop zone
+    posts.forEach((post) => {
+      let cmdbox = post.querySelector('.diceResultBox');
+      const hidden = post.querySelector('input[type="hidden"]');
+      const filename = hidden.value; //Get image file name
+      const imagename = filename.split(".")[0]; //Get the file name of image without the extension
+      const matches = extractDiceCommands(imagename);
+      if (matches) {
+        if (!cmdbox) {
+          cmdbox = document.createElement('div');
+          cmdbox.className = 'diceResultBox';
+        }
+        const message = matches.join(", ");
+        cmdbox.innerHTML = `
             <div>
             <span class="diceResultText"><span style="font-size: 14px;">🎲<br><span style="font-size: 10px;">${message}</span></span>
             </div>
           `;
-      post.appendChild(cmdbox);
-    }
+        post.appendChild(cmdbox);
+      }
+      else if (cmdbox) {
+        post.removeChild(cmdbox);
+      }
+    })
   }
-  )
 }
 
 function addReminder() {
@@ -184,10 +193,15 @@ function addReminder() {
   }
 }
 
+function ObserveUploadedImagesToUpdateCmdToFuturePost(){
+  const drop_area = document.querySelector('.drop_zone')
+  if (drop_area) {
+    const observer = new MutationObserver(addCmdToFuturePost);
+    const observeOptions = { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] };
+    observer.observe(drop_area, observeOptions);
+  }
+}
 
 addRandomNumbersToPosts();
 addReminder();
-
-// TODO: understand how to call a function when an update is made instead of on a time interval :(
-// Poll for changes every 1 second 
-setInterval(addCmdToFuturePost, 1000);
+ObserveUploadedImagesToUpdateCmdToFuturePost()
