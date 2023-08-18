@@ -19,5 +19,14 @@
     ],
     "icons": {
         "128": "icon128.png"
-    }
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "D6tron.LeTroll@forum-dessine.fr",
+            "strict_min_version": "109.0"
+        }
+    },
+    "host_permissions": [
+        "*://*.forum-dessine.fr/forum/*"
+    ]
 }
