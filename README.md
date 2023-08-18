@@ -2,6 +2,10 @@
 
 Bienvenue dans l'extension de navigateur qui vous permet d'ajouter des jets de dés aux messages du Forum Dessiné 🎲
 
+Elle comprend également :
+- Un rappel de comment l'utiliser sous la zone de réponse d'un topic
+- L'apparition d'un encart indiquant le lancer associé à votre image de réponse 
+
 ## Comment l'utiliser 
 
 Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "**roll**" suivi de vos lancers au format **XdN** (1d6, 3d8, 2d100, etc.)
