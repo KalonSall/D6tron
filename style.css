@@ -32,6 +32,7 @@
   flex-direction: column;
   padding: 3px 5px 5px 5px;
   color: rgb(255, 255, 255);
+  border-radius: 0 0 10px 10px;
 }
 
 .manualDetails {
