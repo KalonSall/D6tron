@@ -130,7 +130,7 @@ function addRandomNumbersToPosts() {
           results.push(res);
         });
 
-        const message = results.join(`<span style="color: #83bcbb;"> | </span>`);
+        const message = results.join(`<span style="color: #76a7aa;"> | </span>`);
 
         const diceResultBox = document.createElement('div');
         diceResultBox.className = 'diceResultBox';
