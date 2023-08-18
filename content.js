@@ -144,7 +144,7 @@ function addCmdToFuturePost(mutationsList, observer) {
   //Check if there is a change in the uploaded images
   let needUpdate = false;
   mutationsList.forEach((mutation) => {
-    if (mutation.target.className == "drop_area") {
+    if (mutation.target.className == "drop_area" || mutation.target.getAttribute('type') == "hidden") {
       needUpdate = true;
     }
   })
@@ -219,7 +219,7 @@ function ObserveUploadedImagesToUpdateCmdToFuturePost() {
   const drop_area = document.querySelector('.drop_zone')
   if (drop_area) {
     const observer = new MutationObserver(addCmdToFuturePost);
-    const observeOptions = { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] };
+    const observeOptions = { childList: true, subtree: true, attributes: true, attributeFilter: ['style','value'] };
     observer.observe(drop_area, observeOptions);
   }
 }
