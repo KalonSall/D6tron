@@ -29,7 +29,11 @@ function executeDiceCommand(command, seed, includeCommandInResult) {
   const diceSize = params[1];
   const textArray = [];
   for (let i = 0; i < diceCount; i++) {
-    textArray.push(`<b>${generateRandomNumber(seed, 1, diceSize).toString()}</b>`);
+    let randomNumber = generateRandomNumber(seed, 1, diceSize).toString();
+    if(diceSize==2){
+      randomNumber=(randomNumber=="1")?"Pile":"Face";
+    }
+    textArray.push(`<b>${randomNumber}</b>`);
     seed = strHash(seed.concat((diceSize * (i + 1) * 123456).toString()))
   }
   let end = ""
@@ -108,6 +112,14 @@ function addRandomNumbersToPosts() {
         if (matches.length == 1) {
           if (parseInt(matches[0].split("d")[0]) == 1) {
             diceTypeMessage = `un dé à ${Math.max(2, parseInt(Math.min(100, matches[0].split("d")[1])))} faces`;
+            includeCommandInResult = 0;
+          }
+          if (parseInt(matches[0].split("d")[1]) == 6) {
+            diceTypeMessage = `un dé`;
+            includeCommandInResult = 0;
+          }
+          if (parseInt(matches[0].split("d")[1]) == 2) {
+            diceTypeMessage = `une pièce`;
             includeCommandInResult = 0;
           }
         }
