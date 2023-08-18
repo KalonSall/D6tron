@@ -175,25 +175,45 @@ function addReminder() {
   const responseBloc = document.querySelector('div[id="repondreTopic"]');
   if (responseBloc) {
     const noteBox = document.createElement('div');
-    noteBox.className = 'diceResultBox';
-    noteBox.innerHTML = `
-            <details>
-            <summary>🎲 <b><span style="color: white;">Règles D6tron</span></b> 🍋</summary>
-            <span class="diceResultText" style="font-size: 14px;">
-            Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)<br>
-            <br>
-            <u>Exemples :</u><br>
-            Lancer <b>un dé 6</b> : <span style="color: #FFDC63;">monfichier</span>.png&nbsp➔&nbsp<span style="color: #FFDC63;">monfichier</span>_<b>roll_1d6</b>.png<br>
-            Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;">monautrefichier</span>.jpg&nbsp➔&nbsp<span style="color: #FFDC63;">monautrefichier</span>_<b>roll_2d100_3d8</b>.jpg<br>
-            <br>
-            <span style="font-size: 10px;">Un encart de confirmation apparaît sous votre fichier déposé ci-dessus si un lancer est détecté !</span>
-            </details>
-          `;
+    noteBox.className = 'manualBox';
+    
+    const details = document.createElement('details');
+    details.className = 'manualDetails';
+    details.style.fontSize = '14px';
+    details.style.margin = '3px';
+    
+    const summary = document.createElement('summary');
+    summary.style.fontWeight = 'bold';
+    summary.textContent = `Comment faire un jet de dés 🎲`
+
+    const manual = document.createElement('p');
+    manual.innerHTML=`Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)`
+
+    const examples = document.createElement('p');
+    examples.style.fontSize = "13px";
+    examples.innerHTML = `
+    <u>Exemples :</u>
+    <br>
+    Lancer <b>un dé 6</b> : <span style="color: #FFDC63;"><b>monfichier</b></span>.png&nbsp➔&nbsp<span style="color: #FFDC63;"><b>monfichier</b></span>_<b>roll_1d6</b>.png
+    <br>
+    Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;"><b>monautrefichier</b></span>.jpg&nbsp➔&nbsp<span style="color: #FFDC63;"><b>monautrefichier</b></span>_<b>roll_2d100_3d8</b>.jpg
+    `
+
+    const footNote = document.createElement('p');
+    footNote.style.fontSize = "11px";
+    footNote.textContent = `Un encart de confirmation apparaît sous votre fichier déposé ci-dessus si un lancer est détecté !`;
+
+    details.appendChild(summary);
+    details.appendChild(manual);
+    details.appendChild(examples);
+    details.appendChild(footNote);
+    noteBox.appendChild(details);
+
     responseBloc.appendChild(noteBox);
   }
 }
 
-function ObserveUploadedImagesToUpdateCmdToFuturePost(){
+function ObserveUploadedImagesToUpdateCmdToFuturePost() {
   const drop_area = document.querySelector('.drop_zone')
   if (drop_area) {
     const observer = new MutationObserver(addCmdToFuturePost);

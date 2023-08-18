@@ -1,23 +1,60 @@
 .diceResultBox {
-    max-width: 100%;
-    display: block;
-    margin-top: 6px;
-    width: 600px;
-    box-sizing: border-box;
-    overflow-clip-margin: content-box;
-    overflow: clip;
-    background-color: #1e4242;
-	box-shadow: 0 0 6px rgba(0, 0, 0, 0.22);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column; /* Vertically align items */
-    padding: 5px; /* Add 3px margin around the text */
-  }
-  
-  .diceResultText {
-    color: rgb(255, 255, 255);
-    font-size: 1em;
-    width: 100%; 
-  }
+  max-width: 100%;
+  display: block;
+  margin-top: 6px;
+  width: 600px;
+  box-sizing: border-box;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+  background-color: #1e4242;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.22);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  /* Vertically align items */
+  padding: 5px;
+  /* Add 3px margin around the text */
+  color: rgb(255, 255, 255);
+}
+
+.diceResultText {
+  color: rgb(255, 255, 255);
+  font-size: 1em;
+  width: 100%;
+}
+
+.manualDetails {
+  font-size: 1em;
+  width: 100%;
+  margin: 10px;
+}
+
+.manualDetails>p {
+  color: rgb(255, 255, 255);
+  margin: 10px;
+}
+
+.manualBox {
+	border: 1px solid #6e9ba1;
+	border-radius: 6px;
+  max-width: 100%;
+  display: block;
+  margin-top: 20px;
+  width: 600px;
+  box-sizing: border-box;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+  background-color: #557e84;
+  /* box-shadow: 0 0 6px rgba(0, 0, 0, 0.22); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  /* Vertically align items */
+  padding: 3px;
+  /* Add 3px margin around the text */
+  color: #98d5d4;
+}
