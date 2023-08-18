@@ -30,8 +30,8 @@ function executeDiceCommand(command, seed, includeCommandInResult) {
   const textArray = [];
   for (let i = 0; i < diceCount; i++) {
     let randomNumber = generateRandomNumber(seed, 1, diceSize).toString();
-    if(diceSize==2){
-      randomNumber=(randomNumber=="1")?"Pile":"Face";
+    if (diceSize == 2) {
+      randomNumber = (randomNumber == "1") ? "Pile" : "Face";
     }
     textArray.push(`<b>${randomNumber}</b>`);
     seed = strHash(seed.concat((diceSize * (i + 1) * 123456).toString()))
@@ -144,8 +144,6 @@ function addRandomNumbersToPosts() {
         diceResultBox.appendChild(rollDiceMessage)
         diceResultBox.appendChild(resultDiceMessage)
         const postPrincipal = post.querySelector('.principal');  // Get image of post
-        // postPrincipal.appendChild(diceResultBox);
-        // postPrincipal.insertBefore(diceResultBox, lazyImageElement.nextSibling);
         post.appendChild(diceResultBox);
       }
     }
@@ -190,18 +188,18 @@ function addReminder() {
   if (responseBloc) {
     const noteBox = document.createElement('div');
     noteBox.className = 'manualBox';
-    
+
     const details = document.createElement('details');
     details.className = 'manualDetails';
     details.style.fontSize = '14px';
     details.style.margin = '3px';
-    
+
     const summary = document.createElement('summary');
     summary.style.fontWeight = 'bold';
     summary.textContent = `Comment faire un jet de dés 🎲`
 
     const manual = document.createElement('p');
-    manual.innerHTML=`Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)`
+    manual.innerHTML = `Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)`
 
     const examples = document.createElement('p');
     examples.style.fontSize = "13px";
@@ -231,7 +229,7 @@ function ObserveUploadedImagesToUpdateCmdToFuturePost() {
   const drop_area = document.querySelector('.drop_zone')
   if (drop_area) {
     const observer = new MutationObserver(addCmdToFuturePost);
-    const observeOptions = { childList: true, subtree: true, attributes: true, attributeFilter: ['style','value'] };
+    const observeOptions = { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'value'] };
     observer.observe(drop_area, observeOptions);
   }
 }
