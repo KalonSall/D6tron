@@ -122,12 +122,18 @@ function addRandomNumbersToPosts() {
 
         const diceResultBox = document.createElement('div');
         diceResultBox.className = 'diceResultBox';
-        diceResultBox.innerHTML = `
-          <div>
-          <span class="diceResultText">🎲 <b>${authorName}</b> lance ${diceTypeMessage} !<br>${message}</span>
-          </div>
-        `;
+        const rollDiceMessage = document.createElement('div');
+        rollDiceMessage.innerHTML = `🎲 <b>${authorName}</b> lance ${diceTypeMessage} !`;
+        const resultDiceMessage = document.createElement('div');
+        resultDiceMessage.style.fontSize = "22px";
+        resultDiceMessage.style.marginTop = "4px";
+        resultDiceMessage.innerHTML = `${message}`;
 
+        diceResultBox.appendChild(rollDiceMessage)
+        diceResultBox.appendChild(resultDiceMessage)
+        const postPrincipal = post.querySelector('.principal');  // Get image of post
+        // postPrincipal.appendChild(diceResultBox);
+        // postPrincipal.insertBefore(diceResultBox, lazyImageElement.nextSibling);
         post.appendChild(diceResultBox);
       }
     }
@@ -146,7 +152,7 @@ function addCmdToFuturePost(mutationsList, observer) {
   if (needUpdate) {
     const posts = document.querySelectorAll('.drop_bloc');  // Get drop zone
     posts.forEach((post) => {
-      let cmdbox = post.querySelector('.diceResultBox');
+      let cmdbox = post.querySelector('.diceCommandBox');
       const hidden = post.querySelector('input[type="hidden"]');
       const filename = hidden.value; //Get image file name
       const imagename = filename.split(".")[0]; //Get the file name of image without the extension
@@ -154,14 +160,10 @@ function addCmdToFuturePost(mutationsList, observer) {
       if (matches) {
         if (!cmdbox) {
           cmdbox = document.createElement('div');
-          cmdbox.className = 'diceResultBox';
+          cmdbox.className = 'diceCommandBox';
         }
         const message = matches.join(", ");
-        cmdbox.innerHTML = `
-            <div>
-            <span class="diceResultText"><span style="font-size: 14px;">🎲<br><span style="font-size: 10px;">${message}</span></span>
-            </div>
-          `;
+        cmdbox.innerHTML = `<span class="diceResultText">🎲 ${message}</span>`;
         post.appendChild(cmdbox);
       }
       else if (cmdbox) {
