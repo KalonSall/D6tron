@@ -10,8 +10,6 @@ Elle comprend également :
 
 Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "**roll**" suivi de vos lancers au format **XdN** (1d6, 3d8, 2d100, etc.)
 
-Un encart de confirmation apparaît sous votre fichier déposé dans la zone de réponse si un lancer est détecté !
-
 **_Exemples :_**
 - Lancer **un dé 6** :            monfichier.png      ➔  monfichier_**roll_1d6**.png
 - Lancer **2d100** et **3d8** :   monautrefichier.jpg ➔  monautrefichier_**roll_2d100_3d8**.jpg
