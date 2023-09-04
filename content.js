@@ -110,24 +110,18 @@ function addRandomNumbersToPosts() {
         let includeCommandInResult = 1;
         let diceTypeMessage = "des dés";
         if (matches.length == 1) {
+          includeCommandInResult = 0;
           if (parseInt(matches[0].split("d")[0]) == 1) {
             diceTypeMessage = `un dé à ${Math.max(2, parseInt(Math.min(100, matches[0].split("d")[1])))} faces`;
-            includeCommandInResult = 0;
             if (parseInt(matches[0].split("d")[1]) == 6) {
               diceTypeMessage = `un dé`;
-              includeCommandInResult = 0;
             }
             if (parseInt(matches[0].split("d")[1]) == 2) {
               diceTypeMessage = `une pièce`;
-              includeCommandInResult = 0;
             }
           } else {
-            if (parseInt(matches[0].split("d")[1]) == 6) {
-              includeCommandInResult = 0;
-            }
             if (parseInt(matches[0].split("d")[1]) == 2) {
               diceTypeMessage = `des pièces`;
-              includeCommandInResult = 0;
             }
           }
         }
