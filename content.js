@@ -145,44 +145,10 @@ function addRandomNumbersToPosts() {
 
         diceResultBox.appendChild(rollDiceMessage)
         diceResultBox.appendChild(resultDiceMessage)
-        const postPrincipal = post.querySelector('.principal');  // Get image of post
         post.appendChild(diceResultBox);
       }
     }
   });
-}
-
-function addCmdToFuturePost(mutationsList, observer) {
-  //Check if there is a change in the uploaded images
-  let needUpdate = false;
-  mutationsList.forEach((mutation) => {
-    if (mutation.target.className == "drop_area" || mutation.target.getAttribute('type') == "hidden") {
-      needUpdate = true;
-    }
-  })
-  //If a change is detected, update the cmdbox
-  if (needUpdate) {
-    const posts = document.querySelectorAll('.drop_bloc');  // Get drop zone
-    posts.forEach((post) => {
-      let cmdbox = post.querySelector('.diceCommandBox');
-      const hidden = post.querySelector('input[type="hidden"]');
-      const filename = hidden.value; //Get image file name
-      const imagename = filename.split(".")[0]; //Get the file name of image without the extension
-      const matches = extractDiceCommands(imagename);
-      if (matches) {
-        if (!cmdbox) {
-          cmdbox = document.createElement('div');
-          cmdbox.className = 'diceCommandBox';
-        }
-        const message = matches.join(", ");
-        cmdbox.innerHTML = `<span class="diceResultText">🎲 ${message}</span>`;
-        post.appendChild(cmdbox);
-      }
-      else if (cmdbox) {
-        post.removeChild(cmdbox);
-      }
-    })
-  }
 }
 
 function addReminder() {
@@ -224,6 +190,39 @@ function addReminder() {
     noteBox.appendChild(details);
 
     responseBloc.appendChild(noteBox);
+  }
+}
+
+function addCmdToFuturePost(mutationsList, observer) {
+  //Check if there is a change in the uploaded images
+  let needUpdate = false;
+  mutationsList.forEach((mutation) => {
+    if (mutation.target.className == "drop_area" || mutation.target.getAttribute('type') == "hidden") {
+      needUpdate = true;
+    }
+  })
+  //If a change is detected, update the cmdbox
+  if (needUpdate) {
+    const posts = document.querySelectorAll('.drop_bloc');  // Get drop zone
+    posts.forEach((post) => {
+      let cmdbox = post.querySelector('.diceCommandBox');
+      const hidden = post.querySelector('input[type="hidden"]');
+      const filename = hidden.value; //Get image file name
+      const imagename = filename.split(".")[0]; //Get the file name of image without the extension
+      const matches = extractDiceCommands(imagename);
+      if (matches) {
+        if (!cmdbox) {
+          cmdbox = document.createElement('div');
+          cmdbox.className = 'diceCommandBox';
+        }
+        const message = matches.join(", ");
+        cmdbox.innerHTML = `<span class="diceResultText">🎲 ${message}</span>`;
+        post.appendChild(cmdbox);
+      }
+      else if (cmdbox) {
+        post.removeChild(cmdbox);
+      }
+    })
   }
 }
 
