@@ -167,16 +167,17 @@ function addReminder() {
     summary.textContent = `Comment faire un jet de dés 🎲`
 
     const manual = document.createElement('p');
-    manual.innerHTML = `Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)`
+    manual.innerHTML = `Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "<b>roll</b>" suivi de vos lancers au format <b>XdN</b> (1d6, 3d8, 2d100, etc.)
+    <br>⚠️ Pas de nom de fichier de plus de <b>28 lettres</b> !`
 
     const examples = document.createElement('p');
     examples.style.fontSize = "13px";
     examples.innerHTML = `
     <u>Exemples :</u>
     <br>
-    Lancer <b>un dé 6</b> : <span style="color: #FFDC63;"><b>monfichier</b></span>.png&nbsp➔&nbsp<span style="color: #FFDC63;"><b>monfichier</b></span>_<b>roll_1d6</b>.png
+    Lancer <b>un dé 6</b> : <span style="color: #FFDC63;"><b>fichier</b></span>.png&nbsp➔&nbsp<span style="color: #FFDC63;"><b>fichier</b></span>_<b>roll_1d6</b>.png
     <br>
-    Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;"><b>monautrefichier</b></span>.jpg&nbsp➔&nbsp<span style="color: #FFDC63;"><b>monautrefichier</b></span>_<b>roll_2d100_3d8</b>.jpg
+    Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;"><b>fichier</b></span>.jpg&nbsp➔&nbsp<span style="color: #FFDC63;"><b>fichier</b></span>_<b>roll_2d100_3d8</b>.jpg
     `
 
     const footNote = document.createElement('p');
@@ -208,6 +209,7 @@ function addCmdToFuturePost(mutationsList, observer) {
       let cmdbox = post.querySelector('.diceCommandBox');
       const hidden = post.querySelector('input[type="hidden"]');
       const filename = hidden.value; //Get image file name
+      const filenameTooLong = filename.length>"perline-dee-mort-dee-roll-1d.jpg".length;
       const imagename = filename.split(".")[0]; //Get the file name of image without the extension
       const matches = extractDiceCommands(imagename);
       if (matches) {
@@ -215,8 +217,16 @@ function addCmdToFuturePost(mutationsList, observer) {
           cmdbox = document.createElement('div');
           cmdbox.className = 'diceCommandBox';
         }
-        const message = matches.join(", ");
-        cmdbox.innerHTML = `<span class="diceResultText">🎲 ${message}</span>`;
+        const message = matches.join(", ");  
+        cmdbox.innerHTML = `<span class="diceResultText">🎲 ${message}</span>`
+        if (filenameTooLong) {
+          cmdbox.innerHTML = `<span class="diceResultText">⚠️ D6tron\nNom trop long</span>`;
+          cmdbox.style.fontSize = "10px";
+          cmdbox.style.backgroundColor = "#FF0000";
+        } else {
+          cmdbox.style.fontSize = "";
+          cmdbox.style.backgroundColor = "";
+        }
         post.appendChild(cmdbox);
       }
       else if (cmdbox) {
