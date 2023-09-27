@@ -9,6 +9,7 @@ Elle comprend également :
 ## Comment l'utiliser 
 
 Pour lancer un dé, ajoutez à la fin du nom de votre fichier le mot "**roll**" suivi de vos lancers au format **XdN** (1d6, 3d8, 2d100, etc.)
+⚠️ Pas de nom de fichier de plus de **28 lettres** !
 
 **_Exemples :_**
 - Lancer **un dé 6** :            monfichier.png      ➔  monfichier_**roll_1d6**.png
