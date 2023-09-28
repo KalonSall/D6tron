@@ -175,9 +175,9 @@ function addReminder() {
     examples.innerHTML = `
     <u>Exemples :</u>
     <br>
-    Lancer <b>un dé 6</b> : <span style="color: #FFDC63;"><b>fichier</b></span>.png&nbsp➔&nbsp<span style="color: #FFDC63;"><b>fichier</b></span>_<b>roll_1d6</b>.png
+    Lancer <b>un dé 6</b> : <span style="color: #FFDC63;"><b>fichier</b></span>.png&nbsp➔&nbsp<span style="color: #FFDC63;"><b>fichier</b></span>-<b>roll-1d6</b>.png
     <br>
-    Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;"><b>fichier</b></span>.jpg&nbsp➔&nbsp<span style="color: #FFDC63;"><b>fichier</b></span>_<b>roll_2d100_3d8</b>.jpg
+    Lancer <b>2d100 et 3d8</b> : <span style="color: #FFDC63;"><b>fichier</b></span>.jpg&nbsp➔&nbsp<span style="color: #FFDC63;"><b>fichier</b></span>-<b>roll-2d100-3d8</b>.jpg
     `
 
     const footNote = document.createElement('p');
