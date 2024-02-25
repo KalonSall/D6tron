@@ -148,7 +148,25 @@ function addRandomNumbersToPosts() {
         const diceResultBox = document.createElement('div');
         diceResultBox.className = 'diceResultBox';
         const rollDiceMessage = document.createElement('div');
-        rollDiceMessage.innerHTML = `🎲 <b>${authorName}</b> lance ${diceTypeMessage} !`;
+        
+        // Clear existing content of rollDiceMessage
+        rollDiceMessage.textContent = '';
+        
+        // Create the necessary elements
+        const diceIcon = document.createElement('span');
+        diceIcon.textContent = '🎲 ';
+        
+        const authorElement = document.createElement('b');
+        authorElement.textContent = authorName;
+        
+        const dicemessage = document.createElement('span');
+        dicemessage.textContent = ` lance ${diceTypeMessage} !`;
+        
+        // Append elements to rollDiceMessage
+        rollDiceMessage.appendChild(diceIcon);
+        rollDiceMessage.appendChild(authorElement);
+        rollDiceMessage.appendChild(dicemessage);
+
         const resultDiceMessage = document.createElement('div');
         resultDiceMessage.style.fontSize = "22px";
         resultDiceMessage.style.marginTop = "4px";
