@@ -1,7 +1,8 @@
-const keyword_Roll_Update_Activation_Date = "20230814000000"
-const v1_1_05_Seed_Parameter_Change_Activation_Date ="20240310000000"
 const DICE_MAX_SIZE = 100
 const DICE_MIN_SIZE = 2
+//Constants used for retro compatibility
+const keyword_Change_Activation_Date = "20230814000000" //date is 14th of August 2023
+const v1_1_5_Seed_Parameter_Change_Activation_Date ="20240303000000" ////date is 3rd of March 2024
 
 function generateSeededRandomInt(str) {
   let hash = 0;
@@ -73,7 +74,7 @@ function extractDiceCommands(str) {
       const postdatematches = str.match(/^([0-9]+)-/g);
       if (postdatematches) {
         const postdate = parseInt(postdatematches[0].replace("-", ""));
-        if (postdate < keyword_Roll_Update_Activation_Date) {
+        if (postdate < keyword_Change_Activation_Date) {
           matches = str.match(pattern);
         }
       }
@@ -92,7 +93,7 @@ function extractDiceCommands(str) {
   return matches;
 }
 
-function addRandomNumbersToPosts() {
+function addDiceRollsResultsToPosts() {
   const posts = document.querySelectorAll('.post'); // Get post
   posts.forEach((post) => {
     const lazyImageElement = post.querySelector('img.lazy');  // Get image of post
@@ -144,7 +145,7 @@ function addRandomNumbersToPosts() {
         }
 
         matches.forEach((match) => {
-          if(postdate && postdate<v1_1_05_Seed_Parameter_Change_Activation_Date){
+          if(postdate && postdate<v1_1_5_Seed_Parameter_Change_Activation_Date){
             seed = generateSeededRandomString(seed.concat(authorName, match));  // Update seed
           } else {
             seed = generateSeededRandomString(seed.concat(match));  // Update seed
@@ -190,7 +191,7 @@ function addRandomNumbersToPosts() {
   });
 }
 
-function addReminder() {
+function addHowToUseElementUnderTopicDropZone() {
   const responseBloc = document.querySelector('div[id="repondreTopic"]');
   if (responseBloc) {
     const noteBox = document.createElement('div');
@@ -233,7 +234,7 @@ function addReminder() {
   }
 }
 
-function addCmdToFuturePost(mutationsList, observer) {
+function addDiceCommandFeedbackUnderFuturePost(mutationsList, observer) {
   //Check if there is a change in the uploaded images
   let needUpdate = false;
   mutationsList.forEach((mutation) => {
@@ -275,15 +276,15 @@ function addCmdToFuturePost(mutationsList, observer) {
   }
 }
 
-function ObserveUploadedImagesToUpdateCmdToFuturePost() {
+function ObserveDropZoneUploadedImagesToUpdateDiceCommandFoundInFuturePost() {
   const drop_area = document.querySelector('.drop_zone')
   if (drop_area) {
-    const observer = new MutationObserver(addCmdToFuturePost);
+    const observer = new MutationObserver(addDiceCommandFeedbackUnderFuturePost);
     const observeOptions = { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'value'] };
     observer.observe(drop_area, observeOptions);
   }
 }
 
-addRandomNumbersToPosts();
-addReminder();
-ObserveUploadedImagesToUpdateCmdToFuturePost()
+addDiceRollsResultsToPosts();
+addHowToUseElementUnderTopicDropZone();
+ObserveDropZoneUploadedImagesToUpdateDiceCommandFoundInFuturePost()
