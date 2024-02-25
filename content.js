@@ -1,3 +1,8 @@
+const keyword_Roll_Update_Activation_Date = "20230814000000"
+const v1_1_05_Seed_Parameter_Change_Activation_Date ="20240310000000"
+const DICE_MAX_SIZE = 100
+const DICE_MIN_SIZE = 2
+
 function generateSeededRandomInt(str) {
   let hash = 0;
   if (str.length === 0) return hash;
@@ -68,7 +73,7 @@ function extractDiceCommands(str) {
       const postdatematches = str.match(/^([0-9]+)-/g);
       if (postdatematches) {
         const postdate = parseInt(postdatematches[0].replace("-", ""));
-        if (postdate < 20230814000000) {
+        if (postdate < keyword_Roll_Update_Activation_Date) {
           matches = str.match(pattern);
         }
       }
@@ -80,7 +85,7 @@ function extractDiceCommands(str) {
     for (let i = 0; i < matches.length; i++) {
       const params = matches[i].split("d");
       const diceCount = Math.min(10, params[0]); // Limit to 10 dices by command
-      const diceSize = Math.max(2, Math.min(100, params[1])); // Limit to a dice size of 100 max and 2 min
+      const diceSize = Math.max(DICE_MIN_SIZE, Math.min(DICE_MAX_SIZE, params[1])); // Limit to a dice size of 100 max and 2 min
       matches[i] = diceCount.toString() + "d" + diceSize.toString();
     }
   }
@@ -102,7 +107,7 @@ function addRandomNumbersToPosts() {
       const imagename = filename.split(".")[0]; // Get the file name of image without the extension
 
       
-      let postdate = "20240310000000"
+      let postdate = null
       const postdatematches = imagename.match(/^([0-9]+)-/g);
       if (postdatematches) {
         postdate = parseInt(postdatematches[0].replace("-", ""));
@@ -121,7 +126,7 @@ function addRandomNumbersToPosts() {
         if (matches.length == 1) {
           includeCommandInResult = 0;
           if (parseInt(matches[0].split("d")[0]) == 1) {
-            diceTypeMessage = `un dé à ${Math.max(2, parseInt(Math.min(100, matches[0].split("d")[1])))} faces`;
+            diceTypeMessage = `un dé à ${Math.max(DICE_MIN_SIZE, parseInt(Math.min(DICE_MAX_SIZE, matches[0].split("d")[1])))} faces`;
             if (parseInt(matches[0].split("d")[1]) == 6) {
               diceTypeMessage = `un dé`;
             }
@@ -133,13 +138,13 @@ function addRandomNumbersToPosts() {
               diceTypeMessage = `des pièces`;
             } 
             else if (parseInt(matches[0].split("d")[1]) != 6) {
-              diceTypeMessage = `des dés à ${Math.max(2, parseInt(Math.min(100, matches[0].split("d")[1])))} faces`;
+              diceTypeMessage = `des dés à ${Math.max(DICE_MIN_SIZE, parseInt(Math.min(DICE_MAX_SIZE, matches[0].split("d")[1])))} faces`;
             }
           }
         }
 
         matches.forEach((match) => {
-          if(postdate<"20240310000000"){
+          if(postdate && postdate<v1_1_05_Seed_Parameter_Change_Activation_Date){
             seed = generateSeededRandomString(seed.concat(authorName, match));  // Update seed
           } else {
             seed = generateSeededRandomString(seed.concat(match));  // Update seed
