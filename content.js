@@ -99,6 +99,13 @@ function addRandomNumbersToPosts() {
       const filename = pathArray.pop();
       const imagename = filename.split(".")[0]; // Get the file name of image without the extension
 
+      
+      let postdate = "20240310000000"
+      const postdatematches = imagename.match(/^([0-9]+)-/g);
+      if (postdatematches) {
+        postdate = parseInt(postdatematches[0].replace("-", ""));
+      }
+
       // Find XdN command matches in filename
       let matches = extractDiceCommands(imagename);
 
@@ -127,7 +134,11 @@ function addRandomNumbersToPosts() {
         }
 
         matches.forEach((match) => {
-          seed = strHash(seed.concat(authorName, match));  // Update seed
+          if(postdate<"20240310000000"){
+            seed = strHash(seed.concat(authorName, match));  // Update seed
+          } else {
+            seed = strHash(seed.concat(match));  // Update seed
+          }
           const res = executeDiceCommand(match, seed, includeCommandInResult);
           results.push(res);
         });
