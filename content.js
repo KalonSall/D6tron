@@ -1,4 +1,4 @@
-function intHash(str) {
+function generateSeededRandomInt(str) {
   let hash = 0;
   if (str.length === 0) return hash;
   for (let i = 0; i < str.length; i++) {
@@ -9,7 +9,7 @@ function intHash(str) {
   return hash;
 }
 
-function strHash(str) {
+function generateSeededRandomString(str) {
   let hash = 5381;
   for (let i = 0; i < str.length; i++) {
     hash = (hash * 33) ^ str.charCodeAt(i);
@@ -17,24 +17,26 @@ function strHash(str) {
   return hash.toString();
 }
 
-function generateRandomNumber(seed, min, max) {
-  const hashedSeed = intHash(seed.toString());
-  const rng = (Math.abs(hashedSeed) % (max - min + 1)) + min;
-  return rng;
+function generateSeededRandomNumberInRange(seed, min, max) {
+  //Get unbound random number
+  const hashedSeed = generateSeededRandomInt(seed.toString());
+  //Use it to get a random number in wanted range
+  const randomNumber = (Math.abs(hashedSeed) % (max - min + 1)) + min;
+  return randomNumber;
 }
 
 function executeDiceCommand(command, seed, includeCommandInResult) {
   const params = command.split("d");
-  const diceCount = params[0];
-  const diceSize = params[1];
+  const diceCount = parseInt(params[0]);
+  const diceSize = parseInt(params[1]);
   const textArray = [];
   for (let i = 0; i < diceCount; i++) {
-    let randomNumber = generateRandomNumber(seed, 1, diceSize).toString();
+    let randomNumber = generateSeededRandomNumberInRange(seed, 1, diceSize).toString();
     if (diceSize == 2) {
       randomNumber = (randomNumber == "1") ? "Pile" : "Face";
     }
     textArray.push(`<b>${randomNumber}</b>`);
-    seed = strHash(seed.concat((diceSize * (i + 1) * 123456).toString()))
+    seed = generateSeededRandomString(seed.concat((diceSize * (i + 1) * 123456).toString()))
   }
   let end = ""
   if (textArray.length > 1) {
@@ -59,7 +61,7 @@ function extractDiceCommands(str) {
     matches = splitstr.pop().match(pattern);
   }
 
-  //Very dirty exception, my ancestors are ashamed
+  //Exception to keep results from before 14/09/2023
   if (!matches) {
     const topicId = parseInt(document.location.href.split("/")[4]);
     if (topicId == 3330) {
@@ -129,15 +131,18 @@ function addRandomNumbersToPosts() {
           } else {
             if (parseInt(matches[0].split("d")[1]) == 2) {
               diceTypeMessage = `des pièces`;
+            } 
+            else if (parseInt(matches[0].split("d")[1]) != 6) {
+              diceTypeMessage = `des dés à ${Math.max(2, parseInt(Math.min(100, matches[0].split("d")[1])))} faces`;
             }
           }
         }
 
         matches.forEach((match) => {
           if(postdate<"20240310000000"){
-            seed = strHash(seed.concat(authorName, match));  // Update seed
+            seed = generateSeededRandomString(seed.concat(authorName, match));  // Update seed
           } else {
-            seed = strHash(seed.concat(match));  // Update seed
+            seed = generateSeededRandomString(seed.concat(match));  // Update seed
           }
           const res = executeDiceCommand(match, seed, includeCommandInResult);
           results.push(res);
